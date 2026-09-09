@@ -1,7 +1,6 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../styles/global.css";
+import "../layouts/BaseLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "Su di me";
 
@@ -29,71 +28,53 @@ const fontWeight = "700";
 const textCase = "uppercase";
 ---
 
-<html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-    <style define:vars={{ skillColor, fontWeight, textCase }}>
-      h1 {
-        color: purple;
-        font-size: 4rem;
-      }
-      .skill {
-        color: var(--skillColor);
-        font-weight: var(--fontWeight);
-        text-transform: var(--textCase);
-      }
-    </style>
-  </head>
-  <body>
-    <Header />
-    <h1>{pageTitle}</h1>
-    <h2>... e il mio nuovo sito Astro!</h2>
+<BaseLayout pageTitle={pageTitle}>
+  <h2>... e il mio nuovo sito Astro!</h2>
 
-    <p>
-      Sto seguendo il tutorial introduttivo di Astro. Questa è la seconda pagina
-      sul mio sito web, ed è la prima che ho costruito da solo!
-    </p>
+  <p>
+    Sto seguendo il tutorial introduttivo di Astro. Questa è la seconda pagina
+    sul mio sito web, ed è la prima che ho costruito da solo!
+  </p>
 
-    <p>
-      Questo sito si aggiornerà man mano che completerò altre parti del
-      tutorial, quindi continua a controllare e vedi come sta andando il mio
-      percorso!
-    </p>
+  <p>
+    Questo sito si aggiornerà man mano che completerò altre parti del tutorial,
+    quindi continua a controllare e vedi come sta andando il mio percorso!
+  </p>
 
-    <p>Ecco alcuni fatti su di me:</p>
-    <ul>
-      <li>Il mio nome è {identity.firstName}.</li>
-      <li>Vivo in {identity.country} e lavoro come {identity.occupation}.</li>
-      {
-        identity.hobbies.length >= 2 && (
-          <li>
-            Due dei miei hobby sono: {identity.hobbies[0]} e{" "}
-            {identity.hobbies[1]}
-          </li>
-        )
-      }
-    </ul>
-    <p>Le mie competenze sono:</p>
-    <ul>
-      {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
-    {happy && <p>Sono felice di imparare Astro!</p>}
-    {finished && <p>Ho finito questo tutprial!</p>}
+  <p>Ecco alcuni fatti su di me:</p>
+  <ul>
+    <li>Il mio nome è {identity.firstName}.</li>
+    <li>Vivo in {identity.country} e lavoro come {identity.occupation}.</li>
     {
-      goal === 3 ? (
-        <p>Il mio obiettivo è terminare in 3 giorni.</p>
-      ) : (
-        <p>Il mio obiettivo non è 3 giorni.</p>
+      identity.hobbies.length >= 2 && (
+        <li>
+          Due dei miei hobby sono: {identity.hobbies[0]} e {identity.hobbies[1]}
+        </li>
       )
     }
-    <Footer />
-    <script>
-      import "../scripts/menu.js";
-    </script>
-  </body>
-</html>
+  </ul>
+  <p>Le mie competenze sono:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+  {happy && <p>Sono felice di imparare Astro!</p>}
+  {finished && <p>Ho finito questo tutprial!</p>}
+  {
+    goal === 3 ? (
+      <p>Il mio obiettivo è terminare in 3 giorni.</p>
+    ) : (
+      <p>Il mio obiettivo non è 3 giorni.</p>
+    )
+  }
+</BaseLayout>
+<style is:global define:vars={{ skillColor, fontWeight, textCase }}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+</style>
